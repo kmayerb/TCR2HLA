@@ -1,0 +1,152 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
+
+      - name: Install build tools
+        run: |
+          pip install --upgrade pip
+          pip install build
+
+      - name: Build wheel
+        run: python -m build --wheel
+
+      - name: Install wheel with dev extras
+        run: |
+          WHL=$(ls dist/*.whl)
+          pip install "$WHL[dev]"
+
+      - name: Delete source tcrtest folder to validate install
+        run: rm -rf tcrtest
+
+      - name: Confirm installed package location
+        run: |
+          python -c "import tcrtest, os; print('✅ tcrtest is installed at:', os.path.dirname(tcrtest.__file__))"
+
+      - name: Confirm installed package location Again
+        run: |
+          python -c "
+          import tcrtest, os, site
+          pkg_path = os.path.dirname(tcrtest.__file__)
+          print('✅ tcrtest is installed at:', pkg_path)
+          print('📦 Should be under site-packages:', site.getsitepackages())
+          assert 'site-packages' in pkg_path, '❌ tcrtest is being imported from source, not site-packages!'
+          "
+      - name: Get critical test files
+        run: |
+          wget https://raw.githubusercontent.com/kmayerb/tcrdist3/refs/heads/master/dash.csv
+          wget -O towlerton_mini5.zip https://www.dropbox.com/scl/fi/8q5nso1yb9bnu31tcx923/towlerton_mini5.zip?rlkey=6ynvt8d8e8fgr16roe91e1bma&st=out29lbr&dl=1
+          wget -O towlerton25.zip https://www.dropbox.com/scl/fi/72jnhawjj0rd2nuvxk7h8/towlerton25.zip?rlkey=enqpzs32wjzuvp0a5rlox3daq&st=7cc9qmiq&dl=1
+          
+      - name: Run tests via pytest
+        run: pytest -v tests/
+
+      - name: TCR2HLA
+        run: TCR2HLA --help
+      
+      - name: TCR2HLA_hello (debug)
+        run: |
+          set -x
+          TCR2HLA_hello || true
+
+      - name: run_demo
+        run: | 
+          TCR2HLA \
+            --model_name XSTUDY_ALL_FEATURE_L1_v4e \
+            --calibration_name XSTUDY_ALL_FEATURE_L1_v4e_HS2 \
+            --name demo1 \
+            --parse_adaptive_files \
+            --project_folder demo1_output \
+            --zipfile towlerton25.zip \
+            --cpus 2 \
+            --test_mode
+
+
+# name: CI
+
+# on:
+#   push:
+#     branches: [main]
+#   pull_request:
+#     branches: [main]
+
+# jobs:
+#   test:
+#     runs-on: ubuntu-latest
+
+#     steps:
+#       - name: Checkout code
+#         uses: actions/checkout@v4
+
+#       - name: Set up Python
+#         uses: actions/setup-python@v5
+#         with:
+#           python-version: '3.10'
+
+#       - name: Install build tools
+#         run: |
+#           pip install --upgrade pip build
+
+#       - name: Build wheel
+#         run: |
+#           python -m build --wheel
+
+#       - name: Install package from wheel (not source!)
+#         run: |
+#           WHL=$(ls dist/*.whl)
+#           pip install "$WHL[dev]"
+
+#       - name: Confirm installation path
+#         run: |
+#           python -c "import tcrtest, os; print('Installed tcrtest at:', os.path.dirname(tcrtest.__file__))"
+#           pip show tcrtest
+
+#       - name: List installed tcrtest package in site-packages
+#         run: |
+#           PKGDIR=$(python -c "import tcrtest, os; print(os.path.dirname(tcrtest.__file__))")
+#           echo "Installed tcrtest package is at: $PKGDIR"
+#           ls -lR $PKGDIR
+
+#       - name: Test that models folder is present
+#         run: |
+#           ls $(python -c "import tcrtest, os; print(os.path.dirname(tcrtest.__file__))")/models
+
+#       - name: Run pytest to test unit tests
+#         run: pytest -v -s
+
+#       - name: List source tcrtest/models contents
+#         run: |
+#           ls -lR tcrtest/models || echo "No source models directory"
+
+#       - name: Show MANIFEST.in
+#         run: cat MANIFEST.in
+
+#       - name: Show installed files in site-packages/tcrtest
+#         run: |
+#           python -c "import tcrtest, os; print(os.path.dirname(tcrtest.__file__))"
+#           ls -lR $(python -c "import tcrtest, os; print(os.path.dirname(tcrtest.__file__))") || echo "No installed tcrtest package"
+#           ls -lR $(python -c "import tcrtest, os; print(os.path.join(os.path.dirname(tcrtest.__file__), 'models'))") || echo "No installed models directory"
+
+#       - name: Print path_to_models from installed package
+#         run: |
+#           python -c "from tcrtest.paths import path_to_models; print('path_to_models:', path_to_models); import os; print('Exists:', os.path.exists(path_to_models)); print('Contents:', os.listdir(path_to_models) if os.path.exists(path_to_models) else 'N/A')"
+
+#       - name: Test TCR2HLA_hello CLI
+#         run: |
+#           TCR2HLA_hello
