@@ -263,3 +263,12 @@ These dependencies will be installed automatically when you install TCR2HLA usin
 * Rosati, E. et al. A novel unconventional T cell population enriched in Crohn’s disease. Gut 71, 2194–2204 (2022).
 
 * Nolan, S. et al. A large-scale database of T-cell receptor beta sequences and binding associations from natural and synthetic exposure to SARS-CoV-2. Front. Immunol. 16, 1488851 (2025).
+
+## License
+
+The code in this repository is licensed under the [MIT License](LICENSE).
+
+The model weights, calibration weights, and features in this repository are licensed under the 
+[Creative Commons Attribution-BY 4.0 International License](https://creativecommons.org/licenses/by/4.0/).
+
+© 2025 Koshlan Mayer-Blackwell.
