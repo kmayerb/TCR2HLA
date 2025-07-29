@@ -18,6 +18,7 @@
   - [Step 4: Assemble HLA-associated TCRs across V partitions](#step-4-assemble-hla-associated-tcrs-across-v-partitions)
 - [Installation](#installation)
 - [Dependencies](#dependencies)
+- [Citing](#citing-tcr2hla)
 
 ## Getting Started
 
@@ -253,6 +254,17 @@ TCR2HLA requires the following Python packages:
 - `scikit-learn`
 
 These dependencies will be installed automatically when you install TCR2HLA using `pip install .` or `pip install "git+https://github.com/kmayerb/TCR2HLA.git"`. 
+
+### Citing TCR2HLA
+
+[TCR2HLA: calibrated inference of HLA genotypes from TCR repertoires enables identification of immunologically relevant metaclonotypes](https://www.biorxiv.org/content/10.1101/2025.07.18.665436v1)
+
+bioRxiv: 10.1101/2025.07.18.665436
+
+![QR](https://connect.biorxiv.org/qr/qr_img.php?id=2025.07.18.665436)
+
+
+
 
 #### Validation Data Sources
 
