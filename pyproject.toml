@@ -1,7 +1,7 @@
 [project]
 name = "TCR2HLA"
 version = "0.1.0"
-description = "Estimate genotype probability for TCRb repertoire data"
+description = "Estimate HLA genotype probability from TCRb repertoire data"
 authors = [{ name = "K.Mayer-Blackwell", email = "kmayerbl@fredhutch.org" }]
 
 dependencies = [
