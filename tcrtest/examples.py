@@ -42,7 +42,7 @@ def download_and_extract_zip( url: str,
     else:
         return zip_path
 
-data_minimal_url ='https://www.dropbox.com/scl/fi/wz33zbbrrceyvisz7ixln/data_minimal.zip?rlkey=h883rdur9pmfo3b1cm504o0ox&st=akvbj374&dl=1' 
+data_minimal_url ='https://www.dropbox.com/scl/fi/40lkypwg6xelv5uzedy65/data_minimal_vx.zip?rlkey=5qf2vq36dayk3ca4vdsnkk4di&st=wug8ybjd&dl=1' 
 
 def download_minimal_validation_data(url: str = data_minimal_url, dest_dir: str = ".", unzip: bool = False, filename: str = "TCR2HLA_data.zip"):
     """
