@@ -689,7 +689,7 @@ echo "NOTE: The Second and Third job will start ONLY after the first job complet
                     mem = mem,
                     time = "02:00:00",
                     partition = partition,
-                    launch = launch)
+                    launch = launch, setup_commands = setup_commands)
                 bash_paths.append(bp)
 
         self.launch_paths['run_direct_finder'] = bash_paths
