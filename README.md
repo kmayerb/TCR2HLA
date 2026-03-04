@@ -257,11 +257,8 @@ These dependencies will be installed automatically when you install TCR2HLA usin
 
 ### Citing TCR2HLA
 
-[TCR2HLA: calibrated inference of HLA genotypes from TCR repertoires enables identification of immunologically relevant metaclonotypes](https://www.biorxiv.org/content/10.1101/2025.07.18.665436v1)
-
-bioRxiv: 10.1101/2025.07.18.665436
-
-![QR](https://connect.biorxiv.org/qr/qr_img.php?id=2025.07.18.665436)
+Mayer-Blackwell, K., Minervina, A., Pogorelyy, M., Rawat, P., Shapiro, M. R., Peters, L. D., ... & Fiore-Gartland, A. (2026). TCR2HLA: calibrated inference of HLA genotypes from TCR repertoires enables identification of immunologically relevant metaclonotypes. PLOS Computational Biology, 22(1), e1013767.
+[PLOS Computational Biology Article](https://journals.plos.org/ploscompbiol/article?id=10.1371/journal.pcbi.1013767)
 
 
 
